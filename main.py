@@ -12,25 +12,13 @@ def acceuil():
     if request.method == "GET":
         with open('user.JSON') as mon_fichier:
             data = json.load(mon_fichier)
+        return make_response( "ok",200)
 
-        print(data)
-
-        pass
-    #elif request.method == "POST":
-    user2 = {
-        "prenom": "Michel",
-        "nom": "DUBOIS",
-    }
-
-    with open('user.JSON', 'w') as mon_fichier:
-        json.dump(user2, mon_fichier)
-    pass
-
-    print(f"arguments : {request.args}")
-    print(f"body: {request.get_json()}")
-
-
-    return make_response(user2, 200)
+    elif request.method == "POST":
+        id = request.args["id"]
+        with open(id+'.txt', 'w') as mon_fichier:
+            json.dump(request.get_json(), mon_fichier)
+        return make_response("ok", 200)
 
 
 if (__name__) == '__main__':
